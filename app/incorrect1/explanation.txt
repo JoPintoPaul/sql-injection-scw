@@ -1,0 +1,13 @@
+In this attempt, we attempt to reject any user input string that contains the word "DELETE".
+
+Although this would prevent the attack seen previously, what if the attack vector consisted instead of using a DELETE statement,
+for example:
+"Jane"
+"Smith'; UPDATE users SET username = 'Fake Username' WHERE '1'='1"
+
+This would give us a SQL statement of:
+"INSERT INTO users VALUE 'Jane Smith'; UPDATE users SET username = 'Fake Username' WHERE '1'='1';"
+
+The UPDATE statement example would return true for all rows, and all rows in the table would have the username "Fake Username",
+effectively wiping out your usernames. So, we can see thatthis solution could work for one specific attack, but it is still
+open to many more vulnerabilities.

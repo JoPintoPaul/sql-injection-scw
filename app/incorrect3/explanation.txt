@@ -1,0 +1,20 @@
+Here, we are taking a different approach. Rather than try to reject unsafe SQL strings, we'll simply escape any single quotes
+that attempt to close our original SQL INSERT statement.
+
+So if a malicious user enters:
+"Jane"
+"Smith'; DELETE FROM users WHERE '1'='1"
+
+Our escapeSingleQuotes function will convert that to
+"INSERT INTO users VALUE 'Jane Smith\'; DELETE FROM users WHERE \'1\'=\'1';"
+
+This approach will be much more secure, won't it?
+
+Although the OWASP recommendations do suggest string escaping as a last resort in exceptional circumstances, it is far
+from a secure solution (https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet#Defense_Option_4:_Escaping_All_User-Supplied_Input).
+
+One reason that this solution is ineffective is that different databases may support different character escaping schemes
+specific to certain kinds of queries. You may use a string escaping technique that you believe is safe and supported for
+your current DBMS, but imagine a scenario in which you switch out one type of SQL database for another. The character escape
+set for the two could be different, and unless a future developer knows to also swap out the string escaping, you could
+potentially open up a security vulnerability within your application.

@@ -1,0 +1,18 @@
+This correct solution looks similar to our first one - so what's the difference?
+
+The difference is that rather than constructing the SQL string ourselves and passing it to the database, we are using an
+Anorm parametrized query. By using the database library's parametrized query constructor, we pass all the escaping of
+strings, checking for SQL injection, and all other safety checks, over to the dedicated security functionality written by
+the library creators.
+
+The OWASP recommendation for JVM languages is to use the PreparedStatement binding:
+https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet#Defense_Option_1:_Prepared_Statements_.28with_Parameterized_Queries.29
+
+By using the Anorm parametrized query, this will be translated by Anorm into a PreparedStatement, and thus we can be sure
+that our database input will be secure from SQL injection.
+https://www.playframework.com/documentation/2.6.x/ScalaAnorm
+
+The overall learning from this topic is that SQL injection is one of the most well-known and common attack attempts on sites,
+and that a database library with dedicated security professionals will almost definitely provide better protection than
+a custom-made solution by you as a developer. A language such as Scala that compiles to Java bytecode should be using the established and thoroughly tested
+PreparedStatement to guard against attack.

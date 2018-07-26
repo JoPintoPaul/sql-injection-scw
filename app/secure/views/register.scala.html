@@ -1,0 +1,25 @@
+@(userForm: Form[secure.models.UserData])(implicit messages: Messages)
+
+@import helper._
+
+<head>
+    <title>Register for our site here</title>
+</head>
+
+<h1>Please fill in your details to register for our site</h1>
+
+@form(action = secure.controllers.routes.RegisterController.register()) {
+    @inputText(
+        (userForm("firstName")),
+        '_label -> "Enter your first name"
+    )
+
+    @inputText(
+        (userForm("lastName")),
+        '_label -> "Enter your last name"
+    )
+
+    <p class="buttons">
+        <input type="submit" id="submit">
+    <p>
+}

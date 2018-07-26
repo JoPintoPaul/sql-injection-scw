@@ -1,0 +1,17 @@
+In this attempt, we attempt to reject any user input string that contains the words DROP TABLE" or "INSERT INTO" or
+or "DELETE FROM" or "UPDATE".
+
+Although this would prevent more attacks attempting to modify data maliciously, it wouldn't prevent against other sorts of attacks,
+such as those employing a SELECT statement to potentially return all rows from a database, for example:
+"Jane"
+"Smith; SELECT * FROM users"
+
+Within our unsafe UserDataRepository class, this would create a SQL statement:
+"INSERT INTO users VALUE Jane Smith; SELECT * FROM users;"
+
+It is easy to imagine a scenario in which the result from the database is echoed back to the end user, and thus we potentially
+have an application leaking data.
+
+So, simply trying to imagine a list of all possible SQL commands, and blocked those strings, is clearly not the correct
+approach for preventing SQL injection. Malicious users will always be trying to come up with inventive ways to compromise
+your site - can you guarantee that you will always be able to think of them first?

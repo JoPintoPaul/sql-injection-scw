@@ -1,0 +1,17 @@
+# Routes
+# ~~~~
+
+GET     /original                     original.controllers.RegisterController.index
+POST    /original                     original.controllers.RegisterController.register
+
+GET     /incorrect1                   incorrect1.controllers.RegisterController.index
+POST    /incorrect1                   incorrect1.controllers.RegisterController.register
+
+GET     /incorrect2                   incorrect2.controllers.RegisterController.index
+POST    /incorrect2                   incorrect2.controllers.RegisterController.register
+
+GET     /incorrect3                   incorrect3.controllers.RegisterController.index
+POST    /incorrect3                   incorrect3.controllers.RegisterController.register
+
+GET     /secure                       secure.controllers.RegisterController.index
+POST    /secure                       secure.controllers.RegisterController.register

@@ -1,0 +1,22 @@
+In our first attempt at taking details from a user and saving them in a database, we use the Play imple data access layer
+Anorm, which comes bundled with the Play Framework, and uses SQL from the application rather than a type-safe ORM such as
+Slick.
+
+This example is insecure because it takes any string input from a user, and includes it in a SQL statement without any
+checking or validation.
+
+This means it is vulnerable to SQL injection. SQL injection is described by OWASP as follows:
+"A SQL injection attack consists of insertion or "injection" of a SQL query via the input data from the client to the application.
+A successful SQL injection exploit can read sensitive data from the database, modify database data (Insert/Update/Delete),
+execute administration operations on the database (such as shutdown the DBMS), recover the content of a given file present
+on the DBMS file system and in some cases issue commands to the operating system."
+
+In this example, a user could enter the following in the "firstName" and ""lastName" fields on the form:
+"Jane"
+"Smith'; DELETE FROM users WHERE '1'='1"
+
+Within our unsafe UserDataRepository class, this would create the following SQL statement in line 13:
+"INSERT INTO users VALUE 'Jane Smith'; DROP TABLE users;"
+
+With this simple form data entry, a malicious user could force our application to drop the entire "users" table from the
+database.
