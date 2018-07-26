@@ -14,7 +14,11 @@ The original, insecure form will be on the URL:
 `http://localhost:9000/original`
 
 The following URLs correspond to three additional incorrect attempts to prevent SQL injection, and one secure solution.
+
 `http://localhost:9000/incorrect1`
+
 `http://localhost:9000/incorrect2`
+
 `http://localhost:9000/incorrect3`
+
 `http://localhost:9000/secure`
